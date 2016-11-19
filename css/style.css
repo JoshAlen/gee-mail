@@ -1,0 +1,18 @@
+.sender {
+  font-weight: bold;
+}
+.bgColor {
+  background-color: #00FFFF;
+}
+td {
+  border-top: 1.5px solid #233142;
+}
+.displayNewMessage {
+  display: none !important;
+}
+#count {
+  color: #900C3F;
+}
+.col-md-2 {
+  background-color: #EBF7FD;
+}
