@@ -1,18 +1,84 @@
 <html>
 	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <script>
       window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE.
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
-      };
+				// forEach loop to go though the geemails array and access each object inside the array.
+				window.geemails.forEach(function(elements){
+
+				 	document.getElementById("newMail").innerHTML += "<tr><td class='col-md-2'>" + elements.date
+					+ "</td><td class='sender col-md-1'>" + elements.sender + "</td><td class='col-md-2'>" + elements.subject + "</td><td class='message col-md-7'>"+ elements.body+"</td></tr>";
+				}); //end forEach
+				//inbox count
+				var count = window.geemails.length;
+				document.getElementById("count").innerHTML = "(" + count + ")";
+
+				//Set a recurring function to via the JavaScript `setInterval` function
+				//that will call our existing `getNewMessage` function that we have created for you that will
+				//return a newly created message with the same properties as your previous messages.
+				var myVar;
+				var newMail;
+				function myFunction() {
+						myVar = setInterval(newMessage, 7000);
+				}
+
+				function newMessage(){
+					newMail = getNewMessage();
+					document.getElementById("newMail").innerHTML += "<tr><td class='col-md-2'>" + newMail.date
+					+ "</td><td class='sender col-md-1'>" + newMail.sender + "</td><td class='col-md-2'>" + newMail.subject + "</td><td class='newGenMessage displayNewMessage col-md-7'>"+ newMail.body+"</td></tr>";
+					//jQuery
+					count++; //adding the inbox email count
+					document.getElementById("count").innerHTML = "(" + count + ")";
+					//jquery
+					$("tr").click(function(){
+							$(this).children(".newGenMessage").toggleClass('displayNewMessage');
+							$(this).children(".newGenMessage").toggleClass('bgColor');
+							$(this).children(".message").toggle();
+							$(this).children(".message").toggleClass('bgColor');
+					});
+				} //end jQuery
+
+				//call myFunction to run the recurring setInterval to run getNewMessage
+				myFunction();
+
+				//jQuery
+				// when user click, it show or hide the email message and change the background-color
+				// It also set the email message display to none
+				$(document).ready(function(){
+					$('.message').hide();
+
+					$("tr").click(function(){
+							$(this).children(".message").toggle();
+							$(this).children(".message").toggleClass('bgColor');
+					});
+				});
+
+			}; //end window onload
     </script>
 	</head>
 	<body>
+
+	</div>
 		<div class="container" id="main">
-			Build Me!
+			<h1>GeeMail Inbox <span id="count"></span></h1>
+			<div class="row">
+			<table id="newMail">
+				<tr>
+					<th>Date</th>
+					<th>Sender</th>
+					<th>Subject</th>
+				</tr>
+			</table>
 		</div>
+		</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</body>
 </html>
